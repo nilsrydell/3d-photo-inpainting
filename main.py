@@ -53,8 +53,8 @@ for idx in tqdm(range(len(sample_list))):
     if config['use_boostmonodepth'] is True:
         run_boostmonodepth(sample['ref_img_fi'], config['src_folder'], config['depth_folder'])
     elif config['require_midas'] is True:
-        run_depth([sample['ref_img_fi']], config['src_folder'], config['depth_folder'],
-                  config['MiDaS_model_ckpt'], MonoDepthNet, MiDaS_utils, target_w=640)
+        image_width = image.shape[1]
+        run_depth(device,[sample['ref_img_fi']], config['src_folder'], config['depth_folder'], config['MiDaS_model_ckpt'], MonoDepthNet, MiDaS_utils, target_w=image_width)
 
     if 'npy' in config['depth_format']:
         config['output_h'], config['output_w'] = np.load(sample['depth_fi']).shape[:2]
